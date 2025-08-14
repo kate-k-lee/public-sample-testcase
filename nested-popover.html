@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body [popover] {
+        border: 1px solid black;
+        width: 100px;
+        inset: unset;
+      }
+
+      #trigger {
+        margin-left: 100px;
+        anchor-name:--menu-list;
+      }
+
+      #mainpopover {
+        position-anchor: --menu-list;
+        left: anchor(left);
+        anchor-name: --menu-list;
+        top: calc(anchor(bottom) + 10px);
+      }
+
+      #subpopover {
+        position-anchor: --menu-list;
+        top: anchor(top);
+        left: calc(anchor(right) + 10px);
+      }
+
+      .listcontainer,
+      .subcontainer {
+        display: flex;
+        flex-direction: column;
+      }
+
+    </style>
+
+
+  </head>
+  <body>
+    <button id="trigger" popovertarget="mainpopover">
+      Menu
+    </button>
+    <div id="mainpopover" popover>
+      <nav class="listcontainer">
+        <a href="#">Item 1</a>
+        <div class="subcontainer" tabindex="0">
+          <a href="#">Item 2 <strong>></strong></a>
+          <div id="subpopover" popover>
+            <div class="listcontainer">
+              <a href="#">Sub item 1</a>
+              <a href="#">Sub item 2</a>
+            </div>
+          </div>
+        </div>
+        <a href="#">Item 3</a>
+      </nav>
+    </div>
+  </body>
+
+  <script>
+    // Events to show the subpopover
+    const subcontainer = document.querySelector(".subcontainer");
+    const subpopover = document.getElementById("subpopover");
+    subcontainer.addEventListener("click", () => {
+      subpopover.showPopover();
+    });
+  </script>
+
+</html>
