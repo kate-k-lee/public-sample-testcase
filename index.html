@@ -1,0 +1,123 @@
+<html>
+  <head></head>
+  <body>
+    <div id="host1"></div>
+
+    <script>
+      // first shadow root (open)
+      const host1 = document.getElementById("host1");
+      const shadow1 = host1.attachShadow({ mode: "open" });
+
+      const style = document.createElement("style");
+      style.textContent = `                         
+         #anchor1 {                                 
+           anchor-name: --anchor1;                  
+           background: orange;                      
+         }                                          
+         #a1target {                                
+           position-anchor: --anchor1;              
+           margin: 0px;                             
+           top: anchor(bottom);                     
+           justify-self: anchor-center;             
+           background: lime;                        
+         }                                          
+         span {                                     
+           display: inline;
+         }                                          
+       `;                                           
+       shadow1.appendChild(style);      
+
+      const span = document.createElement("span");
+
+      const textNode = document.createTextNode("offsetttttttt ");
+      const button = document.createElement("button");
+      button.id = "anchor1";
+      button.textContent = "anchor1";
+      button.setAttribute("popovertarget", "a1target");
+
+      span.appendChild(textNode);
+      span.appendChild(button);
+                                                                     
+      shadow1.appendChild(span);  
+
+      const div = document.createElement("div");
+      div.id = "a1target";
+      div.setAttribute("popover", "");
+
+      shadow1.appendChild(button);
+      shadow1.appendChild(div);
+
+
+
+      // second shadow root (open)
+      const shadow2 = div.attachShadow({ mode: "open" });
+      const style2 = document.createElement("style");
+      style2.textContent = `
+        #div2 {
+          anchor-name: --menu-list;
+        }
+        #a2target {
+          position-anchor: --menu-list;
+          margin: 0px;
+          top: anchor(top);
+          left: anchor(right);
+          background: lightblue;
+        }
+      `;
+
+      const div2 = document.createElement("div");
+      div2.id = "div2";
+      div2.textContent = "div2 (parent) ";
+
+      const button2 = document.createElement("button");
+      button2.textContent = "open anchor2 target";
+      button2.setAttribute("popovertarget", "a2target");
+
+      const div3 = document.createElement("div");
+      div3.id = "a2target";
+      div3.setAttribute("popover", "");
+      div3.textContent = "anchor2 target";
+
+      div2.appendChild(button2);
+
+      shadow2.appendChild(style2);
+      shadow2.appendChild(div2);
+      shadow2.appendChild(div3);
+
+    </script>
+  </body>
+</html>
+
+<!--
+<html>
+  <head>
+    <style>
+      #anchor1 {
+          anchor-name: --anchor1;
+          background: orange;
+      }
+      #a1target {
+          position-anchor: --anchor1;
+          anchor-name: --anchor2;
+          margin: 0px;
+          top: anchor(bottom);
+          justify-self: anchor-center;
+          background: lime;
+      }
+      #a2target {
+          position-anchor: --anchor2;
+          margin: 0px;
+          top: anchor(top);
+          left: anchor(right);
+          background: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    offsetttttttt <button id="anchor1" popovertarget="a1target">anchor1</button>
+    <div id="a1target" popover><button popovertarget="a2target">anchor1 target / anchor2</button></div>
+    <div id="a2target" popover>anchor2 target</div>
+  </body>
+</html>
+-->
+
