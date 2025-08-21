@@ -11,11 +11,11 @@
       const style = document.createElement("style");
       style.textContent = `                         
          #anchor1 {                                 
-           anchor-name: --anchor1;                  
+           anchor-name: --menu-list;                  
            background: orange;                      
          }                                          
          #a1target {                                
-           position-anchor: --anchor1;              
+           position-anchor: --menu-list;              
            margin: 0px;                             
            top: anchor(bottom);                     
            justify-self: anchor-center;             
@@ -29,11 +29,12 @@
 
       const span = document.createElement("span");
 
-      const textNode = document.createTextNode("offsetttttttt ");
+      const textNode = document.createTextNode("offsettttttttttttttttttt ");
       const button = document.createElement("button");
       button.id = "anchor1";
       button.textContent = "anchor1";
       button.setAttribute("popovertarget", "a1target");
+      //button.setAttribute("popovertarget", "");
 
       span.appendChild(textNode);
       span.appendChild(button);
@@ -53,30 +54,31 @@
       const shadow2 = div.attachShadow({ mode: "open" });
       const style2 = document.createElement("style");
       style2.textContent = `
-        #div2 {
+        #a1target-div {
           anchor-name: --menu-list;
         }
         #a2target {
           position-anchor: --menu-list;
           margin: 0px;
           top: anchor(top);
-          left: anchor(right);
+          left: calc(anchor(right) + 10px);
           background: lightblue;
         }
       `;
 
       const div2 = document.createElement("div");
-      div2.id = "div2";
-      div2.textContent = "div2 (parent) ";
+      div2.id = "a1target-div";
+      div2.textContent = "a1target  ";
 
       const button2 = document.createElement("button");
-      button2.textContent = "open anchor2 target";
+      button2.textContent = "anchor2";
       button2.setAttribute("popovertarget", "a2target");
+      //button2.setAttribute("popovertarget", "");
 
       const div3 = document.createElement("div");
       div3.id = "a2target";
       div3.setAttribute("popover", "");
-      div3.textContent = "anchor2 target";
+      div3.textContent = "a2target";
 
       div2.appendChild(button2);
 
