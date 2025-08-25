@@ -34,6 +34,117 @@
       button.id = "anchor1";
       button.textContent = "anchor1";
       button.setAttribute("popovertarget", "a1target");
+
+      span.appendChild(textNode);
+      span.appendChild(button);                                                  
+      shadow1.appendChild(span);  
+
+      const div = document.createElement("div");
+      div.id = "a1target";
+      div.setAttribute("popover", "");
+      shadow1.appendChild(button);
+      shadow1.appendChild(div);
+
+      // second shadow root (open)
+      const shadow2 = div.attachShadow({ mode: "open" });
+      const style2 = document.createElement("style");
+      style2.textContent = `
+        #a1target-div {
+          anchor-name: --menu-list;
+          z-index: 16;
+        }
+        #a2target {
+          position-anchor: --menu-list;
+          margin-left: 10px;
+          margin-top: 0px;
+          top: anchor(top);
+          left: calc(anchor(right) + 10px);
+          background: lightblue;
+          z-index:16;
+        }
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+        li {
+          cursor: pointer;
+          padding: 4px 8px;
+          background: #ddd;
+          border-radius: 6px;
+        }
+        li:hover {
+          background: #bbb;
+        }
+      `;
+
+      const div2 = document.createElement("div");
+      div2.id = "a1target-div";
+      div2.textContent = "a1target  ";
+
+      const ul = document.createElement("ul");
+      const li = document.createElement("li");
+      li.textContent = "anchor2";
+
+      ul.appendChild(li);
+
+      const div3 = document.createElement("div");
+      div3.id = "a2target";
+      div3.setAttribute("popover", "");
+      div3.textContent = "a2target";
+
+      div2.appendChild(ul);
+
+      shadow2.appendChild(style2);
+      shadow2.appendChild(div2);
+      shadow2.appendChild(div3);
+
+      li.addEventListener("click", () => {
+        div3.showPopover();
+      });
+    </script>
+  </body>
+</html>
+
+
+<!--
+
+<html>
+  <head></head>
+  <body>
+    <div id="host1"></div>
+
+    <script>
+      // first shadow root (open)
+      const host1 = document.getElementById("host1");
+      const shadow1 = host1.attachShadow({ mode: "open" });
+
+      const style = document.createElement("style");
+      style.textContent = `                         
+         #anchor1 {                                 
+           anchor-name: --menu-list;                  
+           background: orange;                      
+         }                                          
+         #a1target {                                
+           position-anchor: --menu-list;              
+           margin: 0px;                             
+           top: anchor(bottom);                     
+           justify-self: anchor-center;             
+           background: lime;                        
+         }                                          
+         span {                                     
+           display: inline;
+         }                                          
+       `;                                           
+       shadow1.appendChild(style);      
+
+      const span = document.createElement("span");
+
+      const textNode = document.createTextNode("offsettttttttttttttttttt ");
+      const button = document.createElement("button");
+      button.id = "anchor1";
+      button.textContent = "anchor1";
+      button.setAttribute("popovertarget", "a1target");
       //button.setAttribute("popovertarget", "");
 
       span.appendChild(textNode);
@@ -56,13 +167,16 @@
       style2.textContent = `
         #a1target-div {
           anchor-name: --menu-list;
+          z-index: 16;
         }
         #a2target {
           position-anchor: --menu-list;
-          margin: 0px;
+          margin-left: 10px;
+          margin-top: 0px;
           top: anchor(top);
           left: calc(anchor(right) + 10px);
           background: lightblue;
+          z-index:16;
         }
       `;
 
@@ -89,6 +203,8 @@
     </script>
   </body>
 </html>
+
+-->
 
 <!--
 <html>
